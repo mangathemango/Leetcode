@@ -10,18 +10,14 @@ impl Solution {
         if x < 0 {
             return false
         }
-        let mut digits = 0;
+        let mut digits = Vec::<u8>::new();
         let mut temp = x.clone();
         while temp > 0 {
-            digits += 1;
+            digits.push((temp % 10) as u8);
             temp /= 10;
         }
-        println!("Digits = {}", digits);
-        for right_place in 1..=digits as u32 {
-            let left_place = digits - right_place + 1;
-            let right_digit = x.clone() as i64 % 10_i64.pow(right_place) / 10_i64.pow(right_place - 1);
-            let left_digit = x.clone() as i64 % 10_i64.pow(left_place) / 10_i64.pow(left_place - 1);
-            if right_digit != left_digit {
+        for i in 0..digits.len() {
+            if digits[i] != digits[digits.len() - 1 - i] {
                 return false
             }
         }
