@@ -10,14 +10,16 @@ impl Solution {
         if x < 0 {
             return false
         }
-        let mut digits = Vec::<u8>::new();
+        let mut digits: [u8; 11] = [0; 11];
+        let mut length = 0;
         let mut temp = x.clone();
         while temp > 0 {
-            digits.push((temp % 10) as u8);
+            digits[length] = (temp % 10) as u8;
             temp /= 10;
+            length += 1;
         }
-        for i in 0..digits.len() {
-            if digits[i] != digits[digits.len() - 1 - i] {
+        for i in 0..length / 2 {
+            if digits[i] != digits[length - 1 - i] {
                 return false
             }
         }
